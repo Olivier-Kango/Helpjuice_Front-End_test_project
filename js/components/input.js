@@ -91,4 +91,13 @@ class Input {
     });
     document.addEventListener('click', this.closeSelectMenuHandler);
   }
+
+  closeSelectMenuHandler() {
+    this.setState({
+      htmlBackup: null,
+      selectMenuIsOpen: false,
+      selectMenuPosition: { x: null, y: null },
+    });
+    document.removeEventListener('click', this.closeSelectMenuHandler);
+  }
 }
