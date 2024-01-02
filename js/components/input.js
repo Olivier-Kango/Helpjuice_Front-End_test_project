@@ -2,7 +2,10 @@ import { getCaretCoordinates, setCaretToEnd } from '../functions/caretHelpers.js
 
 class Input {
   constructor(props) {
+    // Set props
     this.props = props;
+
+    // Binding methods to the instance
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
     this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
@@ -10,10 +13,12 @@ class Input {
     this.closeSelectMenuHandler = this.closeSelectMenuHandler.bind(this);
     this.tagSelectionHandler = this.tagSelectionHandler.bind(this);
 
+    // Creating contentEditable element
     this.contentEditable = document.createElement('div');
     this.contentEditable.classList.add('Input');
     this.contentEditable.setAttribute('contenteditable', true);
 
+    // Initial state
     this.state = {
       htmlBackup: null,
       html: '',
