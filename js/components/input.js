@@ -1,5 +1,8 @@
+import { getCaretCoordinates, setCaretToEnd } from '../functions/caretHelpers.js';
+
 class Input {
   constructor(props) {
+    this.props = props;
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
     this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
@@ -110,7 +113,6 @@ class Input {
   }
 
   render() {
-    // Destructure values from state and props
     const {
       selectMenuIsOpen,
       selectMenuPosition,
@@ -121,24 +123,26 @@ class Input {
 
     let selectMenu = '';
     if (selectMenuIsOpen) {
-    // Assuming SelectMenu is a function that creates the SelectMenu element
-    selectMenu = SelectMenu({
-      position: selectMenuPosition,
-      onSelect: this.tagSelectionHandler,
-      close: this.closeSelectMenuHandler,
-    });
+      // Assuming SelectMenu is a function that creates the SelectMenu element
+      selectMenu = selectMenu({
+        position: selectMenuPosition,
+        onSelect: this.tagSelectionHandler,
+        close: this.closeSelectMenuHandler,
+      });
+    }
+    const contentEditable = document.createElement('div');
+    contentEditable.classList.add('Input');
+    contentEditable.setAttribute('contenteditable', true);
+    contentEditable.setAttribute('placeholder', placeholder);
+    contentEditable.textContent = html;
+    contentEditable.dataset.tag = tag;
+
+    contentEditable.addEventListener('input', this.onChangeHandler);
+    contentEditable.addEventListener('keydown', this.onKeyDownHandler);
+    contentEditable.addEventListener('keyup', this.onKeyUpHandler);
+
+    return [selectMenu, contentEditable];
   }
-
-  const contentEditable = document.createElement('div');
-  contentEditable.classList.add('Input');
-  contentEditable.setAttribute('contenteditable', true);
-  contentEditable.setAttribute('placeholder', placeholder);
-  contentEditable.textContent = html;
-  contentEditable.dataset.tag = tag;
-
-  contentEditable.addEventListener('input', this.onChangeHandler);
-  contentEditable.addEventListener('keydown', this.onKeyDownHandler);
-  contentEditable.addEventListener('keyup', this.onKeyUpHandler);
-
-  return [selectMenu, contentEditable];
 }
+
+export default Input;
