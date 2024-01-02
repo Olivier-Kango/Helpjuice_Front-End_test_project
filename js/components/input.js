@@ -10,5 +10,17 @@ class Input {
     this.contentEditable = document.createElement('div');
     this.contentEditable.classList.add('Input');
     this.contentEditable.setAttribute('contenteditable', true);
+
+    this.state = {
+      htmlBackup: null,
+      html: '',
+      tag: 'p',
+      previousKey: '',
+      selectMenuIsOpen: false,
+      selectMenuPosition: {
+        x: null,
+        y: null,
+      },
+    };
   }
 }
