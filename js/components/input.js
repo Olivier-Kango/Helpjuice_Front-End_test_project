@@ -47,4 +47,39 @@ class Input {
   onChangeHandler(e) {
     this.setState({ html: e.target.textContent });
   }
+
+  onKeyDownHandler(e) {
+    if (e.key === '/') {
+      const { html } = this.state;
+      this.setState({ htmlBackup: html });
+    }
+    if (e.key === 'Enter') {
+      const { previousKey, selectMenuIsOpen } = this.state;
+      if (previousKey !== 'Shift' && !selectMenuIsOpen) {
+        const { addInput, id } = this.props;
+        e.preventDefault();
+        addInput({
+          id,
+          ref: this.contentEditable.current,
+        });
+      }
+    }
+
+    const { html } = this.state;
+    const { deleteInput, id } = this.props;
+    if (e.key === 'Backspace' && !html) {
+      e.preventDefault();
+      deleteInput({
+        id,
+        ref: this.contentEditable.current,
+      });
+    }
+    this.setState({ previousKey: e.key });
+  }
+
+  onKeyUpHandler(e) {
+    if (e.key === '/') {
+      this.openSelectMenuHandler();
+    }
+  }
 }
