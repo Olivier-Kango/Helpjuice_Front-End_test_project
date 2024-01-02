@@ -100,4 +100,12 @@ class Input {
     });
     document.removeEventListener('click', this.closeSelectMenuHandler);
   }
+
+  tagSelectionHandler(tag) {
+    const { htmlBackup } = this.state;
+    this.setState({ tag, html: htmlBackup }, () => {
+      setCaretToEnd(this.contentEditable.current);
+      this.closeSelectMenuHandler();
+    });
+  }
 }
