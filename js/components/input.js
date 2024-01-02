@@ -23,4 +23,9 @@ class Input {
       },
     };
   }
+
+  componentDidMount() {
+    const { html, tag } = this.props;
+    this.setState({ html, tag });
+  }
 }
