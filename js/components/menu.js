@@ -56,7 +56,7 @@ class SelectMenu {
         break;
       case 'Backspace':
         if (!command) this.close();
-        this.setState({ command: command.substring(0, command.length - 1) });
+        this.setState({ command: command.slice(0, -1) });
         break;
       case 'ArrowUp':
         e.preventDefault();
@@ -65,8 +65,7 @@ class SelectMenu {
       case 'ArrowDown':
       case 'Tab':
         e.preventDefault();
-        e.preventDefault();
-        newSelectedItem = selectedItem === items.length - 1 ? 0 : selectedItem + 1;
+        newSelectedItem = (selectedItem + 1) % items.length;
         break;
       default:
         this.setState({ command: command + e.key });
@@ -114,3 +113,4 @@ const selectMenuInstance = new SelectMenu({
 });
 
 selectMenuInstance.render();
+export default SelectMenu;
