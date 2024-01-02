@@ -6,5 +6,9 @@ class Input {
     this.openSelectMenuHandler = this.openSelectMenuHandler.bind(this);
     this.closeSelectMenuHandler = this.closeSelectMenuHandler.bind(this);
     this.tagSelectionHandler = this.tagSelectionHandler.bind(this);
+
+    this.contentEditable = document.createElement('div');
+    this.contentEditable.classList.add('Input');
+    this.contentEditable.setAttribute('contenteditable', true);
   }
 }
