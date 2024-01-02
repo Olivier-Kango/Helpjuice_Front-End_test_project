@@ -110,6 +110,12 @@ class Input {
   }
 
   render() {
-    
+    const {
+      selectMenuIsOpen,
+      selectMenuPosition,
+      html,
+      tag,
+    } = this.state;
+    const { placeholder } = this.props;
   }
 }
