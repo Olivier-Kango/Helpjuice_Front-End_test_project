@@ -110,6 +110,7 @@ class Input {
   }
 
   render() {
+    // Destructure values from state and props
     const {
       selectMenuIsOpen,
       selectMenuPosition,
@@ -117,5 +118,27 @@ class Input {
       tag,
     } = this.state;
     const { placeholder } = this.props;
+
+    let selectMenu = '';
+    if (selectMenuIsOpen) {
+    // Assuming SelectMenu is a function that creates the SelectMenu element
+    selectMenu = SelectMenu({
+      position: selectMenuPosition,
+      onSelect: this.tagSelectionHandler,
+      close: this.closeSelectMenuHandler,
+    });
   }
+
+  const contentEditable = document.createElement('div');
+  contentEditable.classList.add('Input');
+  contentEditable.setAttribute('contenteditable', true);
+  contentEditable.setAttribute('placeholder', placeholder);
+  contentEditable.textContent = html;
+  contentEditable.dataset.tag = tag;
+
+  contentEditable.addEventListener('input', this.onChangeHandler);
+  contentEditable.addEventListener('keydown', this.onKeyDownHandler);
+  contentEditable.addEventListener('keyup', this.onKeyUpHandler);
+
+  return [selectMenu, contentEditable];
 }
