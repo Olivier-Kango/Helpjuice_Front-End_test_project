@@ -82,4 +82,13 @@ class Input {
       this.openSelectMenuHandler();
     }
   }
+
+  openSelectMenuHandler() {
+    const { x, y } = getCaretCoordinates();
+    this.setState({
+      selectMenuIsOpen: true,
+      selectMenuPosition: { x, y },
+    });
+    document.addEventListener('click', this.closeSelectMenuHandler);
+  }
 }
