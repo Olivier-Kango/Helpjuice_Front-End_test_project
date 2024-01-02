@@ -108,4 +108,8 @@ class Input {
       this.closeSelectMenuHandler();
     });
   }
+
+  render() {
+    
+  }
 }
