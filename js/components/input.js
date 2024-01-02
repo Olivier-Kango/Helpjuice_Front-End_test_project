@@ -43,4 +43,8 @@ class Input {
       });
     }
   }
+
+  onChangeHandler(e) {
+    this.setState({ html: e.target.textContent });
+  }
 }
