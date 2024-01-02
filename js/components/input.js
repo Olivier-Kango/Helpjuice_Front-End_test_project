@@ -1,4 +1,5 @@
 import { getCaretCoordinates, setCaretToEnd } from '../functions/caretHelpers.js';
+import SelectMenu from './menu.js';
 
 class Input {
   constructor(props) {
@@ -129,11 +130,13 @@ class Input {
     let selectMenu = '';
     if (selectMenuIsOpen) {
       // Assuming SelectMenu is a function that creates the SelectMenu element
-      selectMenu = selectMenu({
+      const menu = new SelectMenu({
         position: selectMenuPosition,
         onSelect: this.tagSelectionHandler,
         close: this.closeSelectMenuHandler,
       });
+
+      selectMenu = menu.render();
     }
     const contentEditable = document.createElement('div');
     contentEditable.classList.add('Input');
