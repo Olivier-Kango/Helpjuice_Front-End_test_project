@@ -28,4 +28,19 @@ class Input {
     const { html, tag } = this.props;
     this.setState({ html, tag });
   }
+
+  componentDidUpdate(prevState) {
+    const { html, tag } = this.state;
+    const htmlChanged = prevState.html !== html;
+    const tagChanged = prevState.tag !== tag;
+
+    if (htmlChanged || tagChanged) {
+      const { updatePage, id } = this.props;
+      updatePage({
+        id,
+        html,
+        tag,
+      });
+    }
+  }
 }
