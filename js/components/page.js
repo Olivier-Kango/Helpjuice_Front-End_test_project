@@ -86,3 +86,5 @@ class EditablePage {
     return pageDiv;
   }
 }
+
+export default EditablePage;
