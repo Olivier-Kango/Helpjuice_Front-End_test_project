@@ -50,4 +50,18 @@ class EditablePage {
     this.state.inputs = updatedInputs;
     currentInput.ref.nextElementSibling.focus();
   }
+
+  deleteInputHandler(currentInput) {
+    // Only delete the Input if there is a preceding one
+    const previousInput = currentInput.ref.previousElementSibling;
+    if (previousInput) {
+      const { inputs } = this.state;
+      const index = inputs.map((b) => b.id).indexOf(currentInput.id);
+      const updatedInputs = [...inputs];
+      updatedInputs.splice(index, 1);
+      this.state.inputs = updatedInputs;
+      setCaretToEnd(previousInput);
+      previousInput.focus();
+    }
+  }
 }
