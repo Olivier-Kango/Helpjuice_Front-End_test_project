@@ -23,6 +23,14 @@ class Input {
         y: null,
       },
     };
+
+    // Bind methods
+    this.onChangeHandler = this.onChangeHandler.bind(this);
+    this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
+    this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
+    this.openSelectMenuHandler = this.openSelectMenuHandler.bind(this);
+    this.closeSelectMenuHandler = this.closeSelectMenuHandler.bind(this);
+    this.tagSelectionHandler = this.tagSelectionHandler.bind(this);
   }
 
   componentDidMount() {
@@ -97,7 +105,7 @@ class Input {
       selectMenuIsOpen: true,
       selectMenuPosition: { x, y },
     });
-    document.addEventListener('click', this.closeSelectMenuHandler.bind(this));
+    document.addEventListener('click', this.closeSelectMenuHandler);
   }
 
   closeSelectMenuHandler() {
@@ -106,7 +114,7 @@ class Input {
       selectMenuIsOpen: false,
       selectMenuPosition: { x: null, y: null },
     });
-    document.removeEventListener('click', this.closeSelectMenuHandler.bind(this));
+    document.removeEventListener('click', this.closeSelectMenuHandler);
   }
 
   tagSelectionHandler(tag) {
@@ -126,7 +134,7 @@ class Input {
     } = this.state;
     const { placeholder } = this.props;
 
-    let selectMenu = '';
+    let selectMenu = null;
     if (selectMenuIsOpen) {
       const menu = new SelectMenu({
         position: selectMenuPosition,
@@ -142,11 +150,18 @@ class Input {
     this.contentEditable.textContent = html;
     this.contentEditable.dataset.tag = tag;
 
-    this.contentEditable.addEventListener('input', this.onChangeHandler.bind(this));
-    this.contentEditable.addEventListener('keydown', this.onKeyDownHandler.bind(this));
-    this.contentEditable.addEventListener('keyup', this.onKeyUpHandler.bind(this));
+    this.contentEditable.addEventListener('input', this.onChangeHandler);
+    this.contentEditable.addEventListener('keydown', this.onKeyDownHandler);
+    this.contentEditable.addEventListener('keyup', this.onKeyUpHandler);
 
-    return [selectMenu, this.contentEditable];
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.classList.add('InputWrapper');
+    if (selectMenuIsOpen) {
+      wrapperDiv.appendChild(selectMenu);
+    }
+    wrapperDiv.appendChild(this.contentEditable);
+
+    return wrapperDiv;
   }
 }
 
