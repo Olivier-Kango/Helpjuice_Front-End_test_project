@@ -51,16 +51,15 @@ header {
   width: 0%;
   height: 1.6px;
   background-color: rgb(157, 163, 174);;
-  transition: width 0.5s ease-in-out;
+  transition: width 0.5s ease-in-out, font-weight 0.5s ease-in-out;
 }
-
-/* .header-div ul li:hover {
-  text-decoration: underline;
-  transition: all 0.2s ease-in-out;
-} */
 
 .header-div ul li:hover::before {
   width: 100%;
+}
+
+.header-div ul li:hover {
+  font-weight: 450;
 }
 
 .edit-publish {
@@ -165,7 +164,7 @@ header {
 }
 
 .button:hover {
-  transform: scale(1.03);
+  transform: scale(1.1);
 }
 
 .App h1 {
