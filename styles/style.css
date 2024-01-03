@@ -84,6 +84,7 @@ header {
   background-color: transparent;
   cursor: pointer;
   font-weight: 700;
+  font-size: 1rem;
   color: #3565a9;
 }
 
@@ -165,6 +166,18 @@ header {
 
 .button:hover {
   transform: scale(1.1);
+}
+
+/* Main */
+main {
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-grow: 1;
 }
 
 .App h1 {
