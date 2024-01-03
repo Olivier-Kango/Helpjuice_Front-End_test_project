@@ -57,7 +57,7 @@ class Input {
   }
 
   onChangeHandler() {
-    const newHtml = this.contentEditable.textContent;
+    const newHtml = document.querySelector('.Input').textContent;
     console.log('New HTML content:', newHtml);
     this.setState({ html: newHtml });
   }
@@ -65,12 +65,14 @@ class Input {
   onKeyDownHandler(e) {
     console.log('Key pressed:', e.key);
 
+    // Handling '/' key press
     if (e.key === '/') {
       const htmlBackup = this.contentEditable.textContent;
       console.log('Backup HTML content:', htmlBackup);
       this.setState({ htmlBackup });
     }
 
+    // Handling 'Enter' key press
     if (e.key === 'Enter') {
       const { previousKey, selectMenuIsOpen } = this.state;
       if (previousKey !== 'Shift' && !selectMenuIsOpen) {
@@ -80,17 +82,21 @@ class Input {
           id,
           ref: this.contentEditable.current,
         });
+        console.log('Enter key pressed');
       }
     }
 
     const { html } = this.state;
     const { deleteInput, id } = this.props;
+
+    // Handling 'Backspace' key press
     if (e.key === 'Backspace' && !html) {
       e.preventDefault();
       deleteInput({
         id,
         ref: this.contentEditable.current,
       });
+      console.log('Backspace key pressed');
     }
     this.setState({ previousKey: e.key });
   }
@@ -153,6 +159,7 @@ class Input {
     this.contentEditable.setAttribute('placeholder', placeholder);
     this.contentEditable.textContent = html;
     this.contentEditable.dataset.tag = tag;
+    console.log('test', html);
 
     // Event listeners setup
     this.contentEditable.addEventListener('input', this.onChangeHandler);

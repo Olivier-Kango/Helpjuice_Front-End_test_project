@@ -12,7 +12,7 @@ const inputContainer = document.getElementById('inputContainer');
 // Create an instance of Input
 const input = new Input({
   id: 'uniqueId', // Provide a unique ID
-  html: 'Hello, World!', // Initial HTML content
+  html: '', // Initial HTML content
   tag: 'p', // Initial tag
   placeholder: 'Enter text here Olk', // Placeholder text
   addInput: () => {}, // Function to add input
