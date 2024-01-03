@@ -13,6 +13,24 @@ body {
     sans-serif;
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+}
+
+#arrowH {
+  margin-right: 40px;
+}
+
+.header-div {
+  color: #9DA3AE;
+}
+
+.header-div ul {
+  background: red;
+}
 
 .App h1 {
   margin: 2rem 0 0 0;
