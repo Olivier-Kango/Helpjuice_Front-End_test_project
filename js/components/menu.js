@@ -1,3 +1,5 @@
+const { matchSorter } = require('match-sorter');
+
 // allowedTags array
 const allowedTags = [
   {
@@ -14,16 +16,14 @@ const allowedTags = [
 
 class SelectMenu {
   constructor(props) {
-    this.props = props;
+    this.keyDownHandler = this.keyDownHandler.bind(this);
     this.state = {
       command: '',
       items: allowedTags,
-      selectedItem: 0,
+      selectedItemIndex: 0,
     };
-    this.keyDownHandler = this.keyDownHandler.bind(this);
     this.close = this.close.bind(this);
-
-    this.render();
+    this.onSelect = props.onSelect;
     this.addEventListeners();
   }
 
@@ -40,15 +40,15 @@ class SelectMenu {
   }
 
   updateItems(command) {
-    const items = allowedTags.filter((tag) => tag.tag.includes(command));
+    const items = matchSorter(allowedTags, command, { keys: ['tag'] });
     this.setState({ items });
   }
 
   keyDownHandler(e) {
     const { items, command, selectedItem } = this.state;
-    const { onSelect } = this.props;
+    const { onSelect } = this;
 
-    let newSelectedItem;
+    let newSelectedItemIndex;
     switch (e.key) {
       case 'Enter':
         e.preventDefault();
@@ -60,19 +60,19 @@ class SelectMenu {
         break;
       case 'ArrowUp':
         e.preventDefault();
-        newSelectedItem = selectedItem === 0 ? items.length - 1 : selectedItem - 1;
+        newSelectedItemIndex = selectedItem === 0 ? items.length - 1 : selectedItem - 1;
         break;
       case 'ArrowDown':
       case 'Tab':
         e.preventDefault();
-        newSelectedItem = (selectedItem + 1) % items.length;
+        newSelectedItemIndex = (selectedItem + 1) % items.length;
         break;
       default:
         this.setState({ command: command + e.key });
         return;
     }
 
-    this.setState({ selectedItem: newSelectedItem });
+    this.setState({ selectedItem: newSelectedItemIndex });
   }
 
   render() {
