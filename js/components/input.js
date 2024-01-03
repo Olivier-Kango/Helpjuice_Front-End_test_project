@@ -6,14 +6,6 @@ class Input {
     // Set props
     this.props = props;
 
-    // Binding methods to the instance
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-    this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
-    this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-    this.openSelectMenuHandler = this.openSelectMenuHandler.bind(this);
-    this.closeSelectMenuHandler = this.closeSelectMenuHandler.bind(this);
-    this.tagSelectionHandler = this.tagSelectionHandler.bind(this);
-
     // Creating contentEditable element
     this.contentEditable = document.createElement('div');
     this.contentEditable.classList.add('Input');
@@ -36,6 +28,8 @@ class Input {
   componentDidMount() {
     const { html, tag } = this.props;
     this.setState({ html, tag });
+    // Assuming updatePage needs to be called here
+    this.updatePage({ id: this.props.id, html, tag });
   }
 
   componentDidUpdate(prevState) {
@@ -51,6 +45,11 @@ class Input {
         tag,
       });
     }
+  }
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.render();
   }
 
   onChangeHandler(e) {
@@ -98,7 +97,7 @@ class Input {
       selectMenuIsOpen: true,
       selectMenuPosition: { x, y },
     });
-    document.addEventListener('click', this.closeSelectMenuHandler);
+    document.addEventListener('click', this.closeSelectMenuHandler.bind(this));
   }
 
   closeSelectMenuHandler() {
@@ -107,7 +106,7 @@ class Input {
       selectMenuIsOpen: false,
       selectMenuPosition: { x: null, y: null },
     });
-    document.removeEventListener('click', this.closeSelectMenuHandler);
+    document.removeEventListener('click', this.closeSelectMenuHandler.bind(this));
   }
 
   tagSelectionHandler(tag) {
@@ -129,27 +128,25 @@ class Input {
 
     let selectMenu = '';
     if (selectMenuIsOpen) {
-      // Assuming SelectMenu is a function that creates the SelectMenu element
       const menu = new SelectMenu({
         position: selectMenuPosition,
-        onSelect: this.tagSelectionHandler,
-        close: this.closeSelectMenuHandler,
+        onSelect: this.tagSelectionHandler.bind(this),
+        close: this.closeSelectMenuHandler.bind(this),
       });
-
       selectMenu = menu.render();
     }
-    const contentEditable = document.createElement('div');
-    contentEditable.classList.add('Input');
-    contentEditable.setAttribute('contenteditable', true);
-    contentEditable.setAttribute('placeholder', placeholder);
-    contentEditable.textContent = html;
-    contentEditable.dataset.tag = tag;
 
-    contentEditable.addEventListener('input', this.onChangeHandler);
-    contentEditable.addEventListener('keydown', this.onKeyDownHandler);
-    contentEditable.addEventListener('keyup', this.onKeyUpHandler);
+    this.contentEditable.classList.add('Input');
+    this.contentEditable.setAttribute('contenteditable', true);
+    this.contentEditable.setAttribute('placeholder', placeholder);
+    this.contentEditable.textContent = html;
+    this.contentEditable.dataset.tag = tag;
 
-    return [selectMenu, contentEditable];
+    this.contentEditable.addEventListener('input', this.onChangeHandler.bind(this));
+    this.contentEditable.addEventListener('keydown', this.onKeyDownHandler.bind(this));
+    this.contentEditable.addEventListener('keyup', this.onKeyUpHandler.bind(this));
+
+    return [selectMenu, this.contentEditable];
   }
 }
 
