@@ -11,6 +11,7 @@ body {
     sans-serif;
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -67,6 +68,85 @@ header {
   cursor: pointer;
   font-weight: 700;
   color: #3565a9;
+}
+
+/* bar */
+.bar {
+  padding: 0 1rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  min-width: 22rem;
+  max-width: 75rem;
+  cursor: pointer;
+  border: 0.1rem solid var(--text-gray-400);
+  box-shadow: 9px 5px 99px -26px rgba(0, 0, 0, 0.54);
+  gap: 8px;
+  padding: 0.5rem 0.75rem;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+}
+
+.bar .search:hover {
+  border: 0.125rem solid var(--text-gray-500);
+}
+
+.P {
+  padding: 5px 10px;
+  color: rgb(52, 118, 89);
+  background: rgb(217, 249, 230);
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.middle {
+  color: var(--text-gray-400);
+}
+
+.time {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--text-gray-500);
+}
+
+.lapin {
+  width: 23px;
+  height: 23px;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-gray-500);
+}
+
+.input-s {
+  margin-left: 15px;
+  margin-right: 15px;
+  border: none;
+  outline: none;
+  min-height: 6rem;
+  flex-grow: 1;
+}
+
+.div-button {
+  display: flex;
+  gap: 10px;
+}
+
+.div-button button {
+  all: unset;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-right: 5px;
+}
+
+.button:hover {
+  transform: scale(1.03);
 }
 
 .App h1 {
