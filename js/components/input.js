@@ -6,11 +6,6 @@ class Input {
     // Set props
     this.props = props;
 
-    // Creating contentEditable element
-    this.contentEditable = document.createElement('div');
-    this.contentEditable.classList.add('Input');
-    this.contentEditable.setAttribute('contenteditable', true);
-
     // Initial state
     this.state = {
       htmlBackup: null,
@@ -62,13 +57,20 @@ class Input {
   }
 
   onChangeHandler() {
-    this.setState({ html: this.contentEditable.textContent });
+    const newHtml = this.contentEditable.textContent;
+    console.log('New HTML content:', newHtml);
+    this.setState({ html: newHtml });
   }
 
   onKeyDownHandler(e) {
+    console.log('Key pressed:', e.key);
+
     if (e.key === '/') {
-      this.setState({ htmlBackup: this.contentEditable.textContent });
+      const htmlBackup = this.contentEditable.textContent;
+      console.log('Backup HTML content:', htmlBackup);
+      this.setState({ htmlBackup });
     }
+
     if (e.key === 'Enter') {
       const { previousKey, selectMenuIsOpen } = this.state;
       if (previousKey !== 'Shift' && !selectMenuIsOpen) {
@@ -144,6 +146,8 @@ class Input {
       selectMenu = menu.render();
     }
 
+    // Create the contentEditable element
+    this.contentEditable = document.createElement('div');
     this.contentEditable.classList.add('Input');
     this.contentEditable.setAttribute('contenteditable', true);
     this.contentEditable.setAttribute('placeholder', placeholder);
