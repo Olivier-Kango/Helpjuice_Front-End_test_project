@@ -1,5 +1,3 @@
-const { matchSorter } = require('match-sorter');
-
 // allowedTags array
 const allowedTags = [
   {
@@ -39,20 +37,20 @@ class SelectMenu {
     this.removeEventListeners();
   }
 
-  updateItems(command) {
-    const items = matchSorter(allowedTags, command, { keys: ['tag'] });
-    this.setState({ items });
+  filterItems(command) {
+    const filteredItems = allowedTags.filter((tag) => tag.tag.includes(command));
+    this.setState({ items: filteredItems });
   }
 
   keyDownHandler(e) {
-    const { items, command, selectedItem } = this.state;
+    const { items, command, selectedItemIndex } = this.state;
     const { onSelect } = this;
 
     let newSelectedItemIndex;
     switch (e.key) {
       case 'Enter':
         e.preventDefault();
-        onSelect(items[selectedItem].tag);
+        onSelect(items[selectedItemIndex].tag);
         break;
       case 'Backspace':
         if (!command) this.close();
@@ -60,24 +58,30 @@ class SelectMenu {
         break;
       case 'ArrowUp':
         e.preventDefault();
-        newSelectedItemIndex = selectedItem === 0 ? items.length - 1 : selectedItem - 1;
+        newSelectedItemIndex = selectedItemIndex === 0 ? items.length - 1 : selectedItemIndex - 1;
         break;
       case 'ArrowDown':
       case 'Tab':
         e.preventDefault();
-        newSelectedItemIndex = (selectedItem + 1) % items.length;
+        newSelectedItemIndex = (selectedItemIndex + 1) % items.length;
         break;
       default:
         this.setState({ command: command + e.key });
+        this.filterItems(command + e.key);
         return;
     }
 
-    this.setState({ selectedItem: newSelectedItemIndex });
+    this.setState({ selectedItemIndex: newSelectedItemIndex });
+  }
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.render();
   }
 
   render() {
-    const { items, selectedItem } = this.state;
-    const { onSelect } = this.props;
+    const { items, selectedItemIndex } = this.state;
+    const { onSelect } = this;
 
     const selectMenu = document.createElement('div');
     selectMenu.classList.add('SelectMenu');
@@ -86,7 +90,7 @@ class SelectMenu {
     itemsContainer.classList.add('Items');
 
     items.forEach((item, index) => {
-      const isSelectedItem = index === selectedItem;
+      const isSelectedItem = index === selectedItemIndex;
 
       const itemElement = document.createElement('div');
       itemElement.classList.add(isSelectedItem ? 'selectedItem' : null);
