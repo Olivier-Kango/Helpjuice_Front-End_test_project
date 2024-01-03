@@ -13,9 +13,8 @@ body {
 
 header {
   display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding: 20px;
+  justify-content: space-between;
+  padding: 22px 25px;
 }
 
 #arrowH {
@@ -43,6 +42,31 @@ header {
 
 .header-div ul li:hover {
   text-decoration: underline;
+}
+
+.edit-publish {
+  display: flex;
+  gap: 10px;
+  color: #9DA3AE;
+}
+
+.middle {
+  color: #9DA3AE;
+}
+
+.edit-publish .edit {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.edit-publish select {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  color: #3565a9;
 }
 
 .App h1 {
