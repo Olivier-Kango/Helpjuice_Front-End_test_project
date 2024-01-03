@@ -67,7 +67,7 @@ class Input {
 
     // Handling '/' key press
     if (e.key === '/') {
-      const htmlBackup = this.contentEditable.textContent;
+      const htmlBackup = document.querySelector('.Input').textContent;
       console.log('Backup HTML content:', htmlBackup);
       this.setState({ htmlBackup });
     }
@@ -80,7 +80,7 @@ class Input {
         e.preventDefault();
         addInput({
           id,
-          ref: this.contentEditable.current,
+          ref: this.contentEditable,
         });
         console.log('Enter key pressed');
       }
@@ -94,7 +94,7 @@ class Input {
       e.preventDefault();
       deleteInput({
         id,
-        ref: this.contentEditable.current,
+        ref: this.contentEditable,
       });
       console.log('Backspace key pressed');
     }
@@ -113,6 +113,13 @@ class Input {
       selectMenuIsOpen: true,
       selectMenuPosition: { x, y },
     });
+
+    this.selectMenuInstance = new SelectMenu({
+      onSelect: this.tagSelectionHandler.bind(this),
+    });
+    this.selectMenuInstance.render();
+    document.body.appendChild(this.selectMenuInstance.selectMenu);
+
     document.addEventListener('click', this.closeSelectMenuHandler);
   }
 
@@ -122,35 +129,25 @@ class Input {
       selectMenuIsOpen: false,
       selectMenuPosition: { x: null, y: null },
     });
+
+    this.selectMenuInstance.close();
     document.removeEventListener('click', this.closeSelectMenuHandler);
   }
 
   tagSelectionHandler(tag) {
     const { htmlBackup } = this.state;
     this.setState({ tag, html: htmlBackup }, () => {
-      setCaretToEnd(this.contentEditable.current);
+      setCaretToEnd(this.contentEditable);
       this.closeSelectMenuHandler();
     });
   }
 
   render() {
     const {
-      selectMenuIsOpen,
-      selectMenuPosition,
       html,
       tag,
     } = this.state;
     const { placeholder } = this.props;
-
-    let selectMenu = null;
-    if (selectMenuIsOpen) {
-      const menu = new SelectMenu({
-        position: selectMenuPosition,
-        onSelect: this.tagSelectionHandler.bind(this),
-        close: this.closeSelectMenuHandler.bind(this),
-      });
-      selectMenu = menu.render();
-    }
 
     // Create the contentEditable element
     this.contentEditable = document.createElement('div');
@@ -168,9 +165,6 @@ class Input {
 
     const wrapperDiv = document.createElement('div');
     wrapperDiv.classList.add('InputWrapper');
-    if (selectMenuIsOpen) {
-      wrapperDiv.appendChild(selectMenu);
-    }
     wrapperDiv.appendChild(this.contentEditable);
 
     return wrapperDiv;

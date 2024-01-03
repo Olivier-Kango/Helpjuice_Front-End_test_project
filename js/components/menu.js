@@ -23,6 +23,7 @@ class SelectMenu {
     this.close = this.close.bind(this);
     this.onSelect = props.onSelect;
     this.addEventListeners();
+    this.render();
   }
 
   addEventListeners() {
@@ -35,6 +36,7 @@ class SelectMenu {
 
   close() {
     this.removeEventListeners();
+    document.body.removeChild(this.selectMenu);
   }
 
   filterItems(command) {
@@ -83,8 +85,8 @@ class SelectMenu {
     const { items, selectedItemIndex } = this.state;
     const { onSelect } = this;
 
-    const selectMenu = document.createElement('div');
-    selectMenu.classList.add('SelectMenu');
+    this.selectMenu = document.createElement('div');
+    this.selectMenu.classList.add('SelectMenu');
 
     const itemsContainer = document.createElement('div');
     itemsContainer.classList.add('Items');
@@ -103,8 +105,7 @@ class SelectMenu {
       itemsContainer.appendChild(itemElement);
     });
 
-    selectMenu.appendChild(itemsContainer);
-    document.body.appendChild(selectMenu);
+    this.selectMenu.appendChild(itemsContainer);
   }
 }
 
