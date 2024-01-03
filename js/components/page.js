@@ -8,3 +8,12 @@ const initialInput = {
   tag: 'p',
   placeholder: 'Type / for blocks, @ to link docs or people',
 };
+
+class EditablePage {
+  constructor() {
+    this.updatePageHandler = this.updatePageHandler.bind(this);
+    this.addInputHandler = this.addInputHandler.bind(this);
+    this.deleteInputHandler = this.deleteInputHandler.bind(this);
+    this.state = { inputs: [initialInput] };
+  }
+}
