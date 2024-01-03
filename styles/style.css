@@ -1,8 +1,6 @@
 body {
-  display: block;
   margin: 0 auto;
   width: 100%;
-  max-width: 40rem;
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -29,7 +27,22 @@ header {
 }
 
 .header-div ul {
-  background: red;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.header-div ul li {
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+}
+
+.header-div ul li:hover {
+  text-decoration: underline;
 }
 
 .App h1 {
