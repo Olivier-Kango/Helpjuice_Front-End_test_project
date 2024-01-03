@@ -64,4 +64,25 @@ class EditablePage {
       previousInput.focus();
     }
   }
+
+  render() {
+    const { inputs } = this.state;
+    const pageDiv = document.createElement('div');
+    pageDiv.classList.add('Page');
+
+    inputs.forEach((input) => {
+      const inputElement = new Input({
+        id: input.id,
+        tag: input.tag,
+        html: input.html,
+        placeholder: input.placeholder,
+        updatePage: this.updatePageHandler,
+        addInput: this.addInputHandler,
+        deleteInput: this.deleteInputHandler,
+      });
+      pageDiv.appendChild(inputElement.render());
+    });
+
+    return pageDiv;
+  }
 }
