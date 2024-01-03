@@ -150,6 +150,7 @@ class Input {
     this.contentEditable.textContent = html;
     this.contentEditable.dataset.tag = tag;
 
+    // Event listeners setup
     this.contentEditable.addEventListener('input', this.onChangeHandler);
     this.contentEditable.addEventListener('keydown', this.onKeyDownHandler);
     this.contentEditable.addEventListener('keyup', this.onKeyUpHandler);

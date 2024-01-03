@@ -108,13 +108,4 @@ class SelectMenu {
   }
 }
 
-const closeFunction = () => console.log('Close function called');
-const onSelectFunction = (tag) => console.log(`Selected: ${tag}`);
-
-const selectMenuInstance = new SelectMenu({
-  close: closeFunction,
-  onSelect: onSelectFunction,
-});
-
-selectMenuInstance.render();
 export default SelectMenu;
