@@ -31,12 +31,18 @@ class Input {
     this.openSelectMenuHandler = this.openSelectMenuHandler.bind(this);
     this.closeSelectMenuHandler = this.closeSelectMenuHandler.bind(this);
     this.tagSelectionHandler = this.tagSelectionHandler.bind(this);
+
+    this.render();
+  }
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.render();
   }
 
   componentDidMount() {
     const { html, tag } = this.props;
     this.setState({ html, tag });
-    // Assuming updatePage needs to be called here
     this.updatePage({ id: this.props.id, html, tag });
   }
 
@@ -55,19 +61,13 @@ class Input {
     }
   }
 
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.render();
-  }
-
-  onChangeHandler(e) {
-    this.setState({ html: e.target.textContent });
+  onChangeHandler() {
+    this.setState({ html: this.contentEditable.textContent });
   }
 
   onKeyDownHandler(e) {
     if (e.key === '/') {
-      const { html } = this.state;
-      this.setState({ htmlBackup: html });
+      this.setState({ htmlBackup: this.contentEditable.textContent });
     }
     if (e.key === 'Enter') {
       const { previousKey, selectMenuIsOpen } = this.state;
