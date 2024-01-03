@@ -40,4 +40,14 @@ class EditablePage {
     };
     this.state.inputs = updatedInputs;
   }
+
+  addInputHandler(currentInput) {
+    const newInput = { id: random(), html: '', tag: 'p' };
+    const { inputs } = this.state;
+    const index = inputs.map((b) => b.id).indexOf(currentInput.id);
+    const updatedInputs = [...inputs];
+    updatedInputs.splice(index + 1, 0, newInput);
+    this.state.inputs = updatedInputs;
+    currentInput.ref.nextElementSibling.focus();
+  }
 }
