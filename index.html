@@ -4,11 +4,87 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Helpjuice Front-End Test Project</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
 </head>
-<body>
-  Hello world
 
-  <script src="app.js"></script>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-div">
+      <ul>
+        <img src="./assets/arrowH.svg" alt="arrowH" id="arrowH">
+        <img src="./assets/book.svg" alt="book">
+        <li>Main</li>
+        <li>/</li>
+        <li>Getting Started</li>
+        <li>/</li>
+        <li>Front-end developer test proje...</li>
+      </ul>
+    </div>
+    <div class="edit-publish">
+      <div class="edit">
+        <img src="./assets/edit.svg" alt="edit">
+        <span>Editing</span>
+      </div>
+      <div class="middle">|</div>
+      <select class="publish">
+        <option value="publish">
+          Publish Space
+        </option>
+      </select>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="bar">
+      <div class="search">
+        <div class="P">P</div>
+        <div class="middle">|</div>
+        <div class="time">
+          <img src="./assets/barImage.svg" alt="barImage">
+          <div>0min</div>
+        </div>
+        <div class="middle">|</div>
+        <img src="./assets/lapin.png" alt="lapin" class="lapin">
+        <div class="middle">|</div>
+        <div class="count">
+          <img src="./assets/count.svg" alt="count">
+          <div>0</div>
+        </div>
+        <input type="text" class="input-s">
+        <div class="div-button">
+          <button class="button">
+            <img src="./assets/button.svg" alt="button">
+          </button>
+          <button class="button">
+            <img src="./assets/button2.svg" alt="button2">
+          </button>
+          <button class="button">
+            <img src="./assets/button3.svg" alt="button3">
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="para">
+      <h1>Front-end developer test project</h1>
+      <p>Your goal is to make a page that looks exactly like this one, and has the ability to create H1 text simply by typing / then 1, then typing text, and hitting enter.</p>
+      <div id="app"></div>
+    </section>
+  </main>
+
+  <div class="icon-container">
+    <img src="./assets/mark.png" alt="icon-mark">
+  </div>
+  <!-- JavaScript -->
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
