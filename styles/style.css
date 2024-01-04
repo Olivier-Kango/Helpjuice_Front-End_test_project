@@ -1,6 +1,7 @@
 body {
   margin: 0 auto;
   width: 100%;
+  min-height: 100vh;
   font-size: 0.8rem;
   font-family:
     -apple-system,
@@ -229,14 +230,8 @@ main {
   padding: 0.5rem 0;
 }
 
-.Input:hover {
-  background: #fafafa;
-  outline-color: #f5f6fb;
-}
-
 .Input:focus {
   outline: none;
-  background: #f5f6fb;
 }
 
 [contenteditable=true]:empty::before {
@@ -290,4 +285,16 @@ main {
 .Selected {
   background: #f5f6fb;
   border-radius: 0.5rem;
+}
+
+.icon-container {
+  position: fixed;
+  bottom: 4px;
+  right:  -30px; 
+  transform: translateX(-50%); 
+  z-index: 999;
+}
+
+.icon-container img {
+  width: 70%;
 }
